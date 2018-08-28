@@ -4,7 +4,6 @@
     <span>Todo App</span>
     <span class="example-spacer"></span>
     <mat-icon class="example-icon">favorite</mat-icon>
-    <mat-icon class="example-icon">delete</mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -12,7 +11,7 @@
 <mat-card>
   <mat-card-content>
     <mat-list>
-        <mat-list-item> Pepper </mat-list-item>
+        <mat-list-item *ngFor="let task of tasks"> {{task.name}} </mat-list-item>
     </mat-list>
   </mat-card-content>
 </mat-card>
