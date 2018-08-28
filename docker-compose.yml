@@ -15,18 +15,7 @@ services:
    - db
   command: nodemon /api/server.js
  web:
-  image: nginx:latest
-  volumes:
-   - "./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf"
-   - "./etc/ssl:/etc/ssl"
-   - "./web:/var/www/html"
-   - "./etc/nginx/default.template.conf:/etc/nginx/conf.d/default.template"
-  environment:
-   - NGINX_HOST=${NGINX_HOST}
+  image: 'todo-app'
+  build: '.'
   ports:
-   - "3200:80"
-   - "3111:443"
-  links:
-   - api
-  command: /bin/sh -c "envsubst '$$NGINX_HOST' < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
-  restart: always
+   - 3200:80
