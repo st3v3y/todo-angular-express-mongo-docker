@@ -7,26 +7,7 @@ import { HttpResponse } from '@angular/common/http';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'todoapp';
-  tasks;
-  _taskService: any;
-
-  constructor(private taskService: TaskService) {
-    this._taskService = taskService;
-  }
-
-  ngOnInit() {
-    this.getTasks();
-  }
-
-  getTasks() {
-    this._taskService.getTasks()
-    .subscribe(
-      data => { this.tasks = data; },
-      err => console.error(err),
-      () => console.log('done loading foods')
-    );
-  }
 }
 

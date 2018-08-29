@@ -7,14 +7,18 @@ import {MatToolbarModule, MatMenuModule, MatIconModule, MatButtonModule,
 import { TaskService } from './services/task.service';
 import { Globals } from './helpers/globals';
 import { HttpClientModule } from '@angular/common/http';
+import { TaskListComponent } from './components/task-list/task-list.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TaskListComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
     [BrowserAnimationsModule],
     [MatCardModule, MatListModule, MatToolbarModule, MatMenuModule, MatIconModule, MatButtonModule, MatCheckboxModule]
   ],

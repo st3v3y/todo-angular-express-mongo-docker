@@ -1,0 +1,16 @@
+.task-status{
+    color: silver;
+}
+
+input.task-name {
+    border: 0px;
+    font-size: 18px;
+    font-family: 'Inconsolata', monospace;
+    margin-left: 10px;
+    padding:5px 0;
+}
+
+input.task-name:focus {
+    outline:none;
+    border-bottom: 1px solid gray;
+  }
