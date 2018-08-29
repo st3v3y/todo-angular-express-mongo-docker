@@ -1,15 +1,33 @@
 <mat-card>
   <mat-card-content>
+    <mat-icon class="search-icon">search</mat-icon>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Search task" [(ngModel)]="filter.name">
+    </mat-form-field>&nbsp;
+    <mat-checkbox (change)="setFilterCompletedOnly()">Completed</mat-checkbox>&nbsp;
+    <mat-checkbox (change)="setFilterPendingOnly()">Pending</mat-checkbox>
+
     <mat-list>
-        <mat-list-item *ngFor="let task of tasks"> 
-          <section class="example-section">
-            <mat-checkbox class="example-margin" [(ngModel)]="task.isCompleted" (change)="checkedTask($event, task);"></mat-checkbox>
-            <input [style.width.ch]="task.name.length" [(ngModel)]="task.name" (change)="checkedTask($event, task);" class="task-name"> 
-            <span class="task-status"> {{task.isCompleted ? 'completed' : 'pending'}}</span>
-            
+        <mat-list-item *ngFor="let task of tasks | taskfilter:filter"> 
+          <section class="list-section" (mouseenter)="task.showAdditional=true;" (mouseleave)="task.showAdditional=false;">
+            <mat-checkbox [(ngModel)]="task.isCompleted" (change)="changeTask(task);"></mat-checkbox>
+            <input [style.width.ch]="task.name.length" [(ngModel)]="task.name" (change)="changeTask(task);" class="task-name"> 
+            <span class="additional-task-info" *ngIf="task.showAdditional">
+              <span class="task-status"> {{task.isCompleted ? 'completed' : 'pending'}}</span>
+              <mat-icon (click)="deleteTask(task); task.isDeleted = true;" class="click-icon">delete</mat-icon>
+            </span>
           </section>
-           
         </mat-list-item>
     </mat-list>
+
+    <section class="create-new-section">
+      <button mat-button *ngIf="!isCreateNewMode" (click)="this.isCreateNewMode = true;">Create new Task!</button>
+
+      <section *ngIf="isCreateNewMode">
+          <mat-checkbox disabled="disabled"></mat-checkbox>
+        <input #newTaskNameField [style.width.ch]="newTaskNameField.value.length" placeholder="Task name" [(ngModel)]="newTaskNameField.value" (change)="createTask(newTaskNameField.value); isCreateNewMode=false; newTaskNameField.value = '';" class="task-name"> 
+        <mat-icon (click)="isCreateNewMode=false;" class="click-icon">cancel</mat-icon>
+      </section>
+    </section>
   </mat-card-content>
 </mat-card>

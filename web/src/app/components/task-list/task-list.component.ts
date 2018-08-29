@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { TaskService } from '../../services/task.service';
+import { Task } from '../../models/task';
 
 @Component({
   selector: 'app-task-list',
@@ -9,6 +10,8 @@ import { TaskService } from '../../services/task.service';
 export class TaskListComponent implements OnInit {
   tasks;
   _taskService: TaskService;
+  isCreateNewMode: boolean;
+  filter: any;
 
   constructor(private taskService: TaskService) {
     this._taskService = taskService;
@@ -16,6 +19,7 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit() {
     this.getTasks();
+    this.filter = { isDeleted: false };
   }
 
   getTasks() {
@@ -27,14 +31,44 @@ export class TaskListComponent implements OnInit {
     );
   }
 
-  checkedTask(event, task) {
-    // task.isCompleted = !task.isCompleted;
-
+  changeTask(task) {
     this._taskService.updateTask(task, task._id).subscribe(
       (data) => console.log(data),
       err => console.error(err),
       () => console.log('done updating task')
     );
+  }
 
+  deleteTask(task) {
+    task.isDeleted = true;
+    this._taskService.deleteTask(task._id).subscribe(
+      (data) => console.log(data),
+      err => console.error(err),
+      () => console.log('done deleting task')
+    );
+  }
+
+  createTask(taskName) {
+    const task = { name: taskName };
+    this._taskService.addTask(task).subscribe(
+      (data) => { console.log(data); this.getTasks();  },
+      err => console.error(err),
+      () => console.log('done adding task')
+    );
+  }
+
+  setFilterCompletedOnly() {
+    if (this.filter.isCompleted === undefined) {
+      this.filter.isCompleted = true;
+    } else {
+      this.filter.isCompleted = undefined;
+    }
+  }
+  setFilterPendingOnly() {
+    if (this.filter.isCompleted === undefined) {
+      this.filter.isCompleted = false;
+    } else {
+      this.filter.isCompleted = undefined;
+    }
   }
 }

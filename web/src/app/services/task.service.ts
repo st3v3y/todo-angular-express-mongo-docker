@@ -16,13 +16,13 @@ export class TaskService {
 
   getTasks() {
     return this.http.get(`${this.baseUrl}`);
-   }
+  }
 
   getTask(id: string): any {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  addTask(task: Task): any {
+  addTask(task: any): any {
     return this.http.post(this.baseUrl, task);
   }
 
