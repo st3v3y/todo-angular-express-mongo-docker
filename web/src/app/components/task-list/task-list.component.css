@@ -1,3 +1,7 @@
+.task-card {
+    margin: 20px;
+}
+
 .additional-task-info {
     margin-left: 20px;
 }
@@ -30,6 +34,10 @@ input.task-name:focus {
     position: relative;
     top: 5px;
     cursor: pointer;
+}
+
+.create-new-button {
+    margin-top:20px;
 }
 
 .create-new-section{

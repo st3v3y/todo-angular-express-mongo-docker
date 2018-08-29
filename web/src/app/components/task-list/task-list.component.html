@@ -1,27 +1,31 @@
-<mat-card>
+<mat-card class="task-card">
   <mat-card-content>
     <mat-icon class="search-icon">search</mat-icon>
-    <mat-form-field class="example-full-width">
+    <mat-form-field style="width:250px;">
       <input matInput placeholder="Search task" [(ngModel)]="filter.name">
     </mat-form-field>&nbsp;
     <mat-checkbox (change)="setFilterCompletedOnly()">Completed</mat-checkbox>&nbsp;
     <mat-checkbox (change)="setFilterPendingOnly()">Pending</mat-checkbox>
+  </mat-card-content>
+</mat-card>
 
+<mat-card class="task-card">
+  <mat-card-content>
     <mat-list>
-        <mat-list-item *ngFor="let task of tasks | taskfilter:filter"> 
-          <section class="list-section" (mouseenter)="task.showAdditional=true;" (mouseleave)="task.showAdditional=false;">
-            <mat-checkbox [(ngModel)]="task.isCompleted" (change)="changeTask(task);"></mat-checkbox>
-            <input [style.width.ch]="task.name.length" [(ngModel)]="task.name" (change)="changeTask(task);" class="task-name"> 
-            <span class="additional-task-info" *ngIf="task.showAdditional">
-              <span class="task-status"> {{task.isCompleted ? 'completed' : 'pending'}}</span>
-              <mat-icon (click)="deleteTask(task); task.isDeleted = true;" class="click-icon">delete</mat-icon>
-            </span>
-          </section>
-        </mat-list-item>
+      <mat-list-item *ngFor="let task of tasks | taskfilter:filter"> 
+        <section class="list-section" (mouseenter)="task.showAdditional=true;" (mouseleave)="task.showAdditional=false;">
+          <mat-checkbox [(ngModel)]="task.isCompleted" (change)="changeTask(task);"></mat-checkbox>
+          <input [style.width.ch]="task.name.length" [(ngModel)]="task.name" (change)="changeTask(task);" class="task-name"> 
+          <span class="additional-task-info" *ngIf="task.showAdditional">
+            <span class="task-status"> {{task.isCompleted ? 'completed' : 'pending'}}</span>
+            <mat-icon (click)="deleteTask(task); task.isDeleted = true;" class="click-icon">delete</mat-icon>
+          </span>
+        </section>
+      </mat-list-item>
     </mat-list>
 
     <section class="create-new-section">
-      <button mat-button *ngIf="!isCreateNewMode" (click)="this.isCreateNewMode = true;">Create new Task!</button>
+      <button mat-button mat-flat-button class="create-new-button" color="primary" *ngIf="!isCreateNewMode" (click)="this.isCreateNewMode = true;">Create new Task!</button>
 
       <section *ngIf="isCreateNewMode">
           <mat-checkbox disabled="disabled"></mat-checkbox>
