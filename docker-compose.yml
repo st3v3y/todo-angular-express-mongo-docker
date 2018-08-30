@@ -10,12 +10,15 @@ services:
   volumes:
    - ./api/:/api
   ports:
-   - "3000:3000"
+   - '3000:3000'
   links:
    - db
   command: nodemon /api/server.js
  web:
-  image: 'todo-app'
-  build: '.'
+  build: ./web
+  volumes:
+   - './web/dist/todoapp/:/usr/share/nginx/html/'
   ports:
-   - 3200:80
+   - '3200:80'
+  links:
+   - api
