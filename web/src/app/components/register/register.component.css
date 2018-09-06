@@ -1,0 +1,31 @@
+.register-card {
+    width: 500px;
+    margin: auto;
+    margin-top: 50px;
+    text-align: left;
+    padding-top: 70px; 
+    padding-bottom: 70px; 
+}
+
+.register-card-content {
+    margin-left: 50px;
+}
+
+.passwort-hint ul {
+    padding-left: 15px; 
+    font-size: 75%;
+    width:370px;
+}
+
+.register-email, .register-username {
+    width: 390px;
+}
+
+.button-section {
+    margin-top:50px;
+}
+
+.register-section {
+    margin-top:50px;
+    color: gray;
+}

@@ -1,0 +1,71 @@
+<mat-card class="register-card">
+  <mat-card-content class="register-card-content">
+    <form [formGroup]="registerForm">
+      <mat-card-title>Register</mat-card-title>
+      <section>
+        <mat-form-field class="register-field register-email">
+          <input matInput placeholder="Enter your email" formControlName="email" required>
+          <span matPrefix><mat-icon class="email-icon">email</mat-icon>&nbsp;</span>
+          <mat-error *ngFor="let validation of [
+              { type: 'required', message: 'Email is required' },
+              { type: 'email', message: 'Enter a valid email' }
+            ]">
+            <mat-error class="error-message" *ngIf="registerForm.get('email').hasError(validation.type) && (registerForm.get('email').dirty || registerForm.get('email').touched)">{{validation.message}}</mat-error>
+          </mat-error> 
+        </mat-form-field>
+      </section>
+      <section>
+        <mat-form-field class="register-field register-username">
+          <input matInput placeholder="Enter your username" formControlName="username" required>
+          <span matPrefix><mat-icon class="person-icon">person</mat-icon>&nbsp;</span>
+          <mat-error *ngFor="let validation of [
+              { type: 'required', message: 'Username is required' },
+              { type: 'minlength', message: 'Username must be at least 5 characters long' },
+              { type: 'maxlength', message: 'Username cannot be more than 25 characters long' },
+              { type: 'pattern', message: 'Your username must contain only numbers and letters' },
+              { type: 'validUsername', message: 'Your username has already been taken' }
+            ]">
+            <mat-error class="error-message" *ngIf="registerForm.get('email').hasError(validation.type) && (registerForm.get('email').dirty || registerForm.get('email').touched)">{{validation.message}}</mat-error>
+          </mat-error>
+        </mat-form-field>
+      </section>
+      <section formGroupName="matching_passwords">
+        <mat-form-field class="full-width register-field register-password">
+          <input matInput type="password" placeholder="Password" formControlName="password" required>
+          <mat-icon matSuffix matTooltip="
+              Password must be at least 5 characters long.
+              Your password must contain at least one uppercase, one lowercase, and one number
+            ">help</mat-icon>
+          <mat-hint>
+            
+          </mat-hint>
+          <mat-error *ngFor="let validation of [
+              { type: 'required', message: 'Password is required' },
+              { type: 'minlength', message: 'Password must be at least 5 characters long' },
+              { type: 'pattern', message: 'Your password must contain at least one uppercase, one lowercase, and one number' }
+            ]">
+            <mat-error class="error-message" *ngIf="registerForm.get('matching_passwords').get('password').hasError(validation.type) && (registerForm.get('matching_passwords').get('password').dirty || registerForm.get('matching_passwords').get('password').touched)">{{validation.message}}</mat-error>
+          </mat-error>
+        </mat-form-field>
+        &nbsp;
+        <mat-form-field class="full-width register-field register-password-conf">
+          <input matInput type="password" placeholder="Confirm Password" formControlName="confirm_password" [errorStateMatcher]="parentErrorStateMatcher" required>
+          <mat-error *ngFor="let validation of [
+              { type: 'required', message: 'Confirm password is required' }, 
+              { type: 'areEqual', message: 'Password mismatch' 
+            }]">
+            <mat-error class="error-message" *ngIf="(registerForm.get('matching_passwords').get('confirm_password').hasError(validation.type)|| registerForm.get('matching_passwords').hasError(validation.type)) && (registerForm.get('matching_passwords').get('confirm_password').dirty || registerForm.get('matching_passwords').get('confirm_password').touched)">{{validation.message}}</mat-error>
+          </mat-error>
+        </mat-form-field>
+      </section>
+      <section class="button-section">
+        <button mat-button mat-flat-button color="primary" *ngIf="!loading" (click)="registerClick()">Register</button>
+        <mat-spinner style="text-align:center; margin:auto" *ngIf="loading"></mat-spinner>
+      </section>
+      <section class="register-section">
+          You have an account, already? <a [routerLink]="['/login']" class="btn btn-link">login</a>
+      </section>
+    </form>
+
+  </mat-card-content>
+</mat-card>

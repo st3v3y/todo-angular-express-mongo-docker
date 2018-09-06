@@ -1,0 +1,25 @@
+.login-card {
+    width: 500px;
+    margin: auto;
+    margin-top: 50px;
+    text-align: left;
+    padding-top: 70px; 
+    padding-bottom: 70px; 
+}
+
+.login-card-content {
+    margin-left: 70px;
+}
+
+.login-field {
+    width: 320px
+}
+
+.button-section {
+    margin-top:10px;
+}
+
+.register-section {
+    margin-top:50px;
+    color: gray;
+}

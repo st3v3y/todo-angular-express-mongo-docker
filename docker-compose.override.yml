@@ -1,0 +1,17 @@
+version: '3'
+services:
+ db:
+  ports:
+   - "27017:27017"
+  restart: always
+ api:
+  volumes:
+   - ./api/:/api
+   - /api/node_modules #this excludes the node_modules folder
+  ports:
+   - '3000:3000'
+  command: nodemon /api/server.js
+  environment:
+    DEBUG: 'true'
+# As we use the angular development workflow, we don't need a web container for development
+# web: 

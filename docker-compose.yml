@@ -2,23 +2,9 @@ version: '3'
 services:
  db:
   image: mongo
-  ports:
-   - "27017:27017"
-  restart: always
  api:
   build: ./api
-  volumes:
-   - ./api/:/api
-  ports:
-   - '3000:3000'
   links:
    - db
-  command: nodemon /api/server.js
- web:
-  build: ./web
-  volumes:
-   - './web/dist/todoapp/:/usr/share/nginx/html/'
-  ports:
-   - '3200:80'
-  links:
-   - api
+  depends_on:
+   - db

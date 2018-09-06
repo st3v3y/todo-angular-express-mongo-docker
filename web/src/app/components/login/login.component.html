@@ -1,0 +1,26 @@
+
+<mat-card class="login-card">
+  <mat-card-content class="login-card-content">
+    <mat-card-title>Login</mat-card-title>
+    <section>
+      <mat-form-field class="login-field login-email">
+        <input matInput placeholder="Enter your email" [formControl]="email">
+        <span matPrefix><mat-icon class="email-icon">email</mat-icon>&nbsp;</span>
+      </mat-form-field>
+    </section>
+    <section>
+      <mat-form-field class="login-field login-password">
+        <input matInput placeholder="Enter your password" [formControl]="password" [type]="hide ? 'password' : 'text'">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        <span matPrefix><mat-icon class="lock-icon">lock</mat-icon>&nbsp;</span>
+      </mat-form-field>
+    </section>
+    <section class="button-section">
+      <button mat-button mat-flat-button color="primary" *ngIf="!loading" (click)="loginClick()">Login</button>
+      <mat-spinner style="text-align:center; margin:auto" *ngIf="loading"></mat-spinner>
+    </section>
+    <section class="register-section">
+        Don't have an account, yet? <a [routerLink]="['/register']" class="btn btn-link">Register</a>
+      </section>
+  </mat-card-content>
+</mat-card>

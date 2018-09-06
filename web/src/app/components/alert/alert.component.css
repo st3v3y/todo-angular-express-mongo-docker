@@ -1,0 +1,16 @@
+.alert-card{
+    width: 500px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+.alert-success{
+
+}
+
+.alert-danger {
+    background-color: #F2645F;
+    color: white;
+}

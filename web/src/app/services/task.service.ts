@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Globals } from '../helpers/globals';
 import { Task } from '../models/task';
 
@@ -27,11 +27,6 @@ export class TaskService {
   }
 
   updateTask(task: Task, id: number) {
-    // const body = new URLSearchParams();
-    // body.set('status', task.status);
-    // const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
-
-    // return this.http.put(`${this.baseUrl}/${id}`, body.toString(), { headers, observe: 'response' });
     return this.http.put(`${this.baseUrl}/${id}`, task);
   }
 

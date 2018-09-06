@@ -22,6 +22,10 @@ var TaskSchema = new Schema({
   isCompleted: {
     type: Boolean,
     default: false
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User'
   }
 });
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { TaskService } from '../../services/task.service';
-import { Task } from '../../models/task';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task-list',
@@ -13,8 +13,9 @@ export class TaskListComponent implements OnInit {
   isCreateNewMode: boolean;
   filter: any;
 
-  constructor(private taskService: TaskService) {
+  constructor(private taskService: TaskService, private router: Router) {
     this._taskService = taskService;
+    console.log('constructor');
   }
 
   ngOnInit() {
@@ -24,11 +25,11 @@ export class TaskListComponent implements OnInit {
 
   getTasks() {
     this._taskService.getTasks()
-    .subscribe(
-      data => { this.tasks = data; },
-      err => console.error(err),
-      () => console.log('done loading tasks')
-    );
+      .subscribe(
+        data => { this.tasks = data; },
+        err => console.error(err),
+        () => console.log('done loading tasks')
+      );
   }
 
   changeTask(task) {
@@ -64,6 +65,7 @@ export class TaskListComponent implements OnInit {
       this.filter.isCompleted = undefined;
     }
   }
+
   setFilterPendingOnly() {
     if (this.filter.isCompleted === undefined) {
       this.filter.isCompleted = false;
