@@ -2,12 +2,19 @@ version: '3'
 services:
  db:
   image: mongo
+  
+ adminmongo:
+  image: mrvautin/adminmongo
+  links:
+    - db
+
  auth:
   build: ./auth
   links:
    - db
   depends_on:
    - db
+
  api:
   build: ./api
   links:
