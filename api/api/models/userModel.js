@@ -48,10 +48,12 @@ UserSchema.statics.authenticate = function (email, password, callback) {
 }
 
 UserSchema.statics.isloggedin = function (req) {
-  console.log(req.session.user);
+  console.log('-------- is logged in??? ' + req.session.user);
   if(req.session.user){
+    console.log('-------- is logged in!');
     return true;
   }
+  console.log('-------- is NOT logged in! :-(');
   return false;
 }
 

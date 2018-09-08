@@ -1,29 +1,31 @@
 # docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
 # this file ignores docker-compose.override.yml
-version: '3'
-services:
- db:
-  ports:
-   - "27017:27017"
-  restart: always
- api:
-  volumes:
-   - ./api/:/api
-   - /api/node_modules #this excludes the node_modules folder
-  ports:
-   - '3000:3000'
-  command: nodemon /api/server.js
-  environment:
-   PRODUCTION: 'true'
- web:
-  build: ./web
-  volumes:
-   - './web/dist/todoapp/:/usr/share/nginx/html/'
-  ports:
-   - '80:80'
-  environment:
-   PRODUCTION: 'true'
-  links:
-   - api
-  depends_on:
-   - api
+
+# TODO:
+# version: '3'
+# services:
+#  db:
+#   ports:
+#    - "27017:27017"
+#   restart: always
+#  api:
+#   volumes:
+#    - ./api/:/api
+#    - /api/node_modules #this excludes the node_modules folder
+#   ports:
+#    - '3000:3000'
+#   command: nodemon /api/server.js
+#   environment:
+#    PRODUCTION: 'true'
+#  web:
+#   build: ./web
+#   volumes:
+#    - './web/dist/todoapp/:/usr/share/nginx/html/'
+#   ports:
+#    - '80:80'
+#   environment:
+#    PRODUCTION: 'true'
+#   links:
+#    - api
+#   depends_on:
+#    - api

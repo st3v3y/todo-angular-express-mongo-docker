@@ -4,6 +4,9 @@ services:
   ports:
    - "27017:27017"
   restart: always
+ auth:
+  ports:
+   - "3099:3099"
  api:
   volumes:
    - ./api/:/api

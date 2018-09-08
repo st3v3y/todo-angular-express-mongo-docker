@@ -45,9 +45,15 @@ const appRoutes: Routes = [
     ),
     [BrowserAnimationsModule],
     [MatCardModule, MatListModule, MatToolbarModule, MatMenuModule, MatIconModule,
-      MatButtonModule, MatCheckboxModule, MatInputModule, MatProgressSpinnerModule, MatTooltipModule]
+     MatButtonModule, MatCheckboxModule, MatInputModule, MatProgressSpinnerModule, MatTooltipModule]
   ],
-  providers: [TaskService, UserService, AlertService, Globals, AuthGuard],
+  providers: [
+    TaskService,
+    UserService,
+    AlertService,
+    Globals,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

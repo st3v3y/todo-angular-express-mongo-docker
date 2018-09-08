@@ -1,7 +1,7 @@
 
 var express = require('express'),
   app = express(),
-  port = process.env.PORT || 3000,
+  config = require('./config'),
   mongoose = require('mongoose'),
   Task = require('./api/models/todoListModel'), //created model loading here
   User = require('./api/models/userModel'), //created model loading here
@@ -13,20 +13,33 @@ var express = require('express'),
   
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://db:27017/nodeTodo', { useNewUrlParser: true }); 
+mongoose.connect(config.DATABASE, { useNewUrlParser: true }); 
 var database = mongoose.connection;
 
-app.use(cors())
+var originsWhitelist = [ 
+  'http://localhost:4200',      //angular local development
+  'http://web:3200'
+];
+var corsOptions = {
+  origin: function(origin, callback){
+    var isWhitelisted = originsWhitelist.indexOf(origin) !== -1;
+    callback(null, isWhitelisted);
+  },
+  credentials:true
+}
+
+app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cookieParser());
 app.use(session({
-  secret: 'KX5BhB9FRKqKVRvcs6aoBqpufhBSazu69SRmp6DmGPneLjZkQVA',
+  secret: 'happy day',
   resave: true,
   saveUninitialized: false, 
   store: new MongoStore({
     mongooseConnection: database
-  })
+  }),
+  cookie: {  maxAge: 60000 }
 }));
 
 var todoRoutes = require('./api/routes/todoListRoutes');
@@ -46,9 +59,9 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.send(err.message);
+  next(err);
 });
 
+app.listen(config.PORT);
 
-app.listen(port);
-
-console.log('todo list RESTful API server started on: ' + port);
+console.log('todo list RESTful API server started on: ' + config.PORT);

@@ -1,2 +1,4 @@
 api/node_modules/
 web/node_modules/
+auth/node_modules/
+.vscode

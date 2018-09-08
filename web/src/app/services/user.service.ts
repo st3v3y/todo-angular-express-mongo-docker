@@ -19,7 +19,8 @@ export class UserService {
   }
 
   login(user: UserLogin): any {
-    return this.http.post(`${this.baseUrl}/login`, user);
+    // return this.http.post(`http://localhost:3022/login`, user);
+    return this.http.post(`http://localhost:3022/login`, 'username=' + user.email + '&password=' + user.password);
   }
 
   register(user: UserRegister): any {

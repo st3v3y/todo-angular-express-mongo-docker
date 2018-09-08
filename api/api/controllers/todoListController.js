@@ -5,11 +5,6 @@ var mongoose = require('mongoose'),
   User = mongoose.model('User');
 
 exports.list_all_tasks = function(req, res) {
-  if (!User.isloggedin(req, res)) {
-    res.status(401).send('Unauthorized');
-    return;
-  }
-
   Task.find({ createdBy: req.session.user._id }, function(err, task) {
     if (err) {
       res.send(err);
