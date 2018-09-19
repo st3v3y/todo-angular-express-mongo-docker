@@ -1,21 +1,24 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-  Task = mongoose.model('Tasks'),
-  User = mongoose.model('User');
+  Task = mongoose.model('Tasks');
 
 exports.list_all_tasks = function(req, res) {
-  Task.find({ createdBy: req.session.user._id }, function(err, task) {
+  const userId = getUserId(req);
+
+  Task.find({ createdBy: userId }, function(err, task) {
     if (err) {
-      res.send(err);
+      res.json(err);
     }
     res.json(task);
   });
 };
 
 exports.create_a_task = function(req, res) {
+  const userId = getUserId(req);
+
   var new_task = new Task(req.body);
-  new_task.createdBy = req.session.userId;
+  new_task.createdBy = userId;
   new_task.save(function(err, task) {
     if (err) {
       res.send(err);
@@ -24,8 +27,14 @@ exports.create_a_task = function(req, res) {
   });
 };
 
+function getUserId(req){
+  return req.user._id;
+}
+
 exports.read_a_task = function(req, res) {
-  Task.find({_id: req.params.taskId, createdBy: req.session.userId}, function(err, task) {
+  const userId = getUserId(req);
+
+  Task.find({_id: req.params.taskId, createdBy: userId}, function(err, task) {
     if (err) {
       res.send(err);
     }
@@ -34,9 +43,11 @@ exports.read_a_task = function(req, res) {
 };
 
 exports.update_a_task = function(req, res) {
+  const userId = getUserId(req);
+
   Task.findOneAndUpdate({
     _id: req.params.taskId, 
-    createdBy: req.session.userId
+    createdBy: userId
   }, req.body, {new: true}, function(err, task) {
     if (err) {
       res.send(err);
@@ -46,9 +57,11 @@ exports.update_a_task = function(req, res) {
 };
 
 exports.delete_a_task = function(req, res) {
+  const userId = getUserId(req);
+
   Task.remove({
     _id: req.params.taskId,
-    createdBy: req.session.userId
+    createdBy: userId
   }, function(err, task) {
     if (err){
       res.send(err);

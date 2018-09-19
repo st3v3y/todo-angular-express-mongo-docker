@@ -3,10 +3,10 @@ services:
  db:
   ports:
    - '27017:27017'
-  restart: always
+  #restart: always
 
  adminmongo:
-  restart: always
+  #restart: always
   environment:
     - DB_HOST=db
     - DB_PORT=27017
@@ -15,8 +15,12 @@ services:
     - '3024:3024'
 
  auth:
+  volumes:
+   - ./auth/:/auth
+   - /auth/node_modules #this excludes the node_modules folder
   ports:
    - '3099:3099'
+  command: nodemon /auth/server.js
 
  api:
   volumes:
@@ -26,6 +30,6 @@ services:
    - '3000:3000'
   command: nodemon /api/server.js
   environment:
-    DEBUG: 'true'
+    - DEBUG=true
 # As we use the angular development workflow, we don't need a web container for development
 # web: 

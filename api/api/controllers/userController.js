@@ -1,17 +1,10 @@
 'use strict';
-
-exports.user_logged_in = function(req, res) {
-    //TODO: Redirect to auth server
-}
+var request = require('request');
 
 exports.register_user = function(req, res) {
-    //TODO: Redirect to auth server
-};
-
-exports.login = function(req, res) {
-    //TODO: Redirect to auth server
-};
-
-exports.logout = function(req, res) {
-    //TODO: Redirect to auth server
+    //Redirect to auth server
+    var url = 'http://auth:3099/user/register'; // TODO centralize
+    request.post(url).form(req.body).on('error', function(err) {
+        console.log(err);
+    }).pipe(res);
 };

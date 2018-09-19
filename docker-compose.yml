@@ -2,11 +2,15 @@ version: '3'
 services:
  db:
   image: mongo
-  
+  networks:
+      - todo-network
+
  adminmongo:
   image: mrvautin/adminmongo
   links:
     - db
+  networks:
+    - todo-network
 
  auth:
   build: ./auth
@@ -14,6 +18,8 @@ services:
    - db
   depends_on:
    - db
+  networks:
+      - todo-network
 
  api:
   build: ./api
@@ -21,3 +27,9 @@ services:
    - db
   depends_on:
    - db
+  networks:
+      - todo-network
+
+networks:
+  todo-network:
+    driver: bridge

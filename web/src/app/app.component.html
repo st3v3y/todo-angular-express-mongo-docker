@@ -1,9 +1,11 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>Todo App</span>
-    <span class="example-spacer"></span>
+    <span>{{title}}</span>
     <mat-icon class="example-icon">favorite</mat-icon>
+    <span *ngIf="user">{{user.username}}</span>
+    <span class="fill-space"></span>
+    <a *ngIf="user" routerLink="/login" mat-button routerLinkActive="active">Logout</a>
   </mat-toolbar-row>
 </mat-toolbar>
 

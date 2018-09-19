@@ -6,6 +6,7 @@ import { first } from 'rxjs/operators';
 import { AlertService } from '../../services/alert.service';
 import { UserRegister } from '../../models/user';
 import { PasswordValidator } from '../../helpers/password.validator';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-register',
@@ -49,11 +50,12 @@ export class RegisterComponent implements OnInit {
       private router: Router,
       private formBuilder: FormBuilder,
       private userService: UserService,
+      private authService: AuthenticationService,
       private alertService: AlertService) {}
 
   ngOnInit() {
       // reset login status
-      this.userService.logout();
+      this.authService.logout();
 
       this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }

@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import { first } from 'rxjs/operators';
 import { AlertService } from '../../services/alert.service';
 import { UserLogin } from '../../models/user';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -22,12 +23,12 @@ export class LoginComponent implements OnInit {
   constructor(
       private route: ActivatedRoute,
       private router: Router,
-      private userService: UserService,
+      private authService: AuthenticationService,
       private alertService: AlertService) {}
 
   ngOnInit() {
       // reset login status
-      this.userService.logout();
+      this.authService.logout();
 
       this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
@@ -46,7 +47,7 @@ export class LoginComponent implements OnInit {
       password: this.password.value
     };
 
-    this.userService.login(userLogin)
+    this.authService.login(userLogin)
       .pipe(first())
       .subscribe(
         () => {
@@ -54,10 +55,9 @@ export class LoginComponent implements OnInit {
           this.loading = false;
         },
         error => {
-          console.log(error);
-            this.alertService.error(error.error);
-            this.loading = false;
-            this.password.setValue('');
+          this.alertService.error(error.message);
+          this.loading = false;
+          this.password.setValue('');
         });
   }
 }

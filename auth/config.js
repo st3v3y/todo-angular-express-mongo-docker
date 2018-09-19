@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const environment = ['NODE_ENV', 'DATABASE', 'PORT', 'CORS_WHITELIST', 'CLIENT_ID', 'CLIENT_SECRET', 'IS_SILENT_AUTH']; 
+const environment = ['NODE_ENV', 'DATABASE', 'PORT', 'CORS_WHITELIST', 'JWT_SECRET', 'IS_SILENT_AUTH', 'TOKEN_EXPIRES_IN']; 
 
 environment.forEach((name) => {
   if (!process.env[name]) {
@@ -13,7 +13,7 @@ module.exports = {
   DATABASE: process.env.DATABASE,
   PORT: process.env.PORT,
   CORS_WHITELIST: process.env.CORS_WHITELIST,
-  CLIENT_ID: process.env.CLIENT_ID,
-  CLIENT_SECRET: process.env.CLIENT_SECRET,
+  JWT_SECRET: process.env.JWT_SECRET,
   IS_SILENT_AUTH: process.env.IS_SILENT_AUTH,
+  TOKEN_EXPIRES_IN: process.env.TOKEN_EXPIRES_IN
 };
